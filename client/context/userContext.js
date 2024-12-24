@@ -9,7 +9,7 @@ const UserContext = React.createContext();
 axios.defaults.withCredentials = true;
 
 export const UserContextProvider = ({ children }) => {
-  const serverUrl = process.env.NEXT_PUBLIC_MAIN_URL;
+  const serverUrl = "https://taskmanager-muo7.onrender.com";
 
   const router = useRouter();
 
