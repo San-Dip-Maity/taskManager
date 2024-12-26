@@ -7,24 +7,19 @@ import jwt from "jsonwebtoken";
 export const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body;
 
-  //validation
   if (!name || !email || !password) {
-    // 400 Bad Request
     res.status(400).json({ message: "All fields are required" });
   }
 
-  // check password length
   if (password.length < 6) {
     return res
       .status(400)
       .json({ message: "Password must be at least 6 characters" });
   }
 
-  // check if user already exists
   const userExists = await User.findOne({ email });
 
   if (userExists) {
-    // bad request
     return res.status(400).json({ message: "User already exists" });
   }
 
@@ -38,7 +33,6 @@ export const registerUser = asyncHandler(async (req, res) => {
   // generate token with user id
   const token = generateToken(user._id);
 
-  // send back the user and token in the response to the client
   res.cookie("token", token, {
     path: "/",
     httpOnly: true,
